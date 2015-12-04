@@ -33,5 +33,17 @@ namespace DiscoverObjectsWithPropertyType.Tests
                 new List<Type> { typeof(Category), typeof(Order), typeof(ProductImage) }
                 ));
         }
+
+
+        [Test]
+        public void ItDoesntFailIfNoObjectsAreFound()
+        {
+            var matchingObjects = ObjectsWithPropertyType
+                .Discover<Foo>(CurrentAssembly);
+
+            Assert.That(matchingObjects, Is.EqualTo(
+                new List<Type>()
+                ));
+        }
     }
 }

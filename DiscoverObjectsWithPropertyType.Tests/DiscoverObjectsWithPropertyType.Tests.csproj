@@ -50,6 +50,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Classes\Category.cs" />
+    <Compile Include="Classes\Foo.cs" />
     <Compile Include="Classes\Order.cs" />
     <Compile Include="Classes\Product.cs" />
     <Compile Include="Classes\ProductImage.cs" />
