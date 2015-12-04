@@ -15,23 +15,13 @@ namespace DiscoverObjectsWithPropertyType.Tests
         [Test]
         public void ItFindsObjectWithSamePropertyName()
         {
-            var matchingObjects = ObjectsWithPropertyType
-                .Discover<Category>(CurrentAssembly);
-
-            Assert.That(matchingObjects, Is.EqualTo(
-                new List<Type> { typeof(Product) }
-                ));
+            ObjectsShouldContainType<Category>(typeof(Product));
         }
 
         [Test]
         public void ItFindsObjectsFromEnumerable()
         {
-            var matchingObjects = ObjectsWithPropertyType
-                .Discover<Product>(CurrentAssembly);
-
-            Assert.That(matchingObjects, Is.EqualTo(
-                new List<Type> { typeof(Category), typeof(Order), typeof(ProductImage) }
-                ));
+            ObjectsShouldContainType<Product>(typeof(Category), typeof(Order), typeof(ProductImage));
         }
 
 
@@ -44,6 +34,14 @@ namespace DiscoverObjectsWithPropertyType.Tests
             Assert.That(matchingObjects, Is.EqualTo(
                 new List<Type>()
                 ));
+        }
+
+        private void ObjectsShouldContainType<T>(params Type[] types)
+        {
+            var matchingObjects = ObjectsWithPropertyType
+                .Discover<T>(CurrentAssembly);
+
+            Assert.That(matchingObjects, Is.EqualTo(types));
         }
     }
 }
