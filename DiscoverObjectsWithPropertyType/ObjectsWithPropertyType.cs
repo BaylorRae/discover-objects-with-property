@@ -26,7 +26,15 @@ namespace DiscoverObjectsWithPropertyType
         private static bool HasPropertyWithType<T>(Type type)
         {
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            return properties.Any(p => p.PropertyType == typeof(T));
+            return properties.Any(
+
+                // find direct property type
+                p => p.PropertyType == typeof(T) ||
+
+                // find within generic type arguments
+                // ICollection<MyHidingType>
+                p.PropertyType.GenericTypeArguments.Any(a => a == typeof(T))
+            );
         }
     }
 }

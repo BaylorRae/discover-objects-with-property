@@ -10,14 +10,27 @@ namespace DiscoverObjectsWithPropertyType.Tests
     [TestFixture]
     public class ObjectsWithPropertyOfTypeTest
     {
+        private readonly Assembly CurrentAssembly = Assembly.GetAssembly(typeof(ObjectsWithPropertyOfTypeTest));
+
         [Test]
         public void ItFindsObjectWithSamePropertyName()
         {
             var matchingObjects = ObjectsWithPropertyType
-                .Discover<Category>();
+                .Discover<Category>(CurrentAssembly);
 
             Assert.That(matchingObjects, Is.EqualTo(
                 new List<Type> { typeof(Product) }
+                ));
+        }
+
+        [Test]
+        public void ItFindsObjectsFromEnumerable()
+        {
+            var matchingObjects = ObjectsWithPropertyType
+                .Discover<Product>(CurrentAssembly);
+
+            Assert.That(matchingObjects, Is.EqualTo(
+                new List<Type> { typeof(Category), typeof(Order), typeof(ProductImage) }
                 ));
         }
     }
