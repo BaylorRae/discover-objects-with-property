@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace DiscoverObjectsWithPropertyType.Tests
 {
     using Classes;
-    using System.Reflection;
 
     [TestFixture]
     public class ObjectsWithPropertyOfTypeTest
