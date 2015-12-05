@@ -5,15 +5,16 @@ property of a type.
 
 The [test project includes classes][test_classes] that might come from an e-commerce platform
 that reference each other in different ways (`Category`, `Order`, `Product`,
-`ProductImage`).
+`ProductImage`, `RevisedProductListing`).
 
 The classes are connected to each other with the following properties.
 
 ```c#
-class Category     // (IEnumerable<Product> Products)
-class Order        // (ICollection<Product> OrderItems)
-class Product      // (Category Category, ICollection<ProductImage> Images)
-class ProductImage // (Product Product)
+class Category				// (IEnumerable<Product> Products)
+class Order        			// (ICollection<Product> OrderItems)
+class Product      			// (Category Category, ICollection<ProductImage> Images)
+class ProductImage 			// (Product Product)
+class RevisedProductListing // (Product OldProduct, Product NewProduct)
 ```
 
 ## Usage
@@ -25,6 +26,7 @@ interface ObjectsWithPropertyType
 {
     IList<Type> Discover<T>();
     IList<Type> Discover<T>(Assembly assembly);
+    IDictionary<Type, IEnumberable<string>> DiscoverWithMapping<T>(Assembly assembly);
 }
 ```
 
