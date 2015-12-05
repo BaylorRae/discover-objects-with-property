@@ -21,9 +21,40 @@ namespace DiscoverObjectsWithPropertyType.Tests
         [Test]
         public void ItFindsObjectsFromEnumerable()
         {
-            ObjectsShouldContainType<Product>(typeof(Category), typeof(Order), typeof(ProductImage));
+            ObjectsShouldContainType<Product>(
+                typeof(Category),
+                typeof(Order),
+                typeof(ProductImage),
+                typeof(RevisedProductionListing)
+                );
         }
 
+        [Test]
+        public void ItReturnsDictionaryWithPropertyNames()
+        {
+            var matchingProperties = ObjectsWithPropertyType
+                .DiscoverWithMapping<ProductImage>(CurrentAssembly);
+
+            Assert.That(matchingProperties, Is.EqualTo(
+                new Dictionary<Type, IEnumerable<string>> {
+                    {typeof(Product), new[] {"Images"}}
+                }));
+        }
+
+        [Test]
+        public void ItReturnsObjectWithMultipleMatchingProperties()
+        {
+            var matchingProperties = ObjectsWithPropertyType
+                .DiscoverWithMapping<Product>(CurrentAssembly);
+
+            Assert.That(matchingProperties, Is.EqualTo(
+                new Dictionary<Type, IEnumerable<string>> {
+                    {typeof(Category), new[] {"Products"}},
+                    {typeof(Order), new[] {"OrderItems"}},
+                    {typeof(ProductImage), new[] {"Product"}},
+                    {typeof(RevisedProductionListing), new[] {"OldProduct", "NewProduct"}}
+                }));
+        }
 
         [Test]
         public void ItDoesntFailIfNoObjectsAreFound()
@@ -34,6 +65,15 @@ namespace DiscoverObjectsWithPropertyType.Tests
             Assert.That(matchingObjects, Is.EqualTo(
                 new List<Type>()
                 ));
+        }
+
+        [Test]
+        public void ItDoesntFailIfNoPropertiesAreFound()
+        {
+            var matchingProperties = ObjectsWithPropertyType
+                .DiscoverWithMapping<Foo>(CurrentAssembly);
+
+            Assert.That(matchingProperties, Is.EqualTo(new Dictionary<Type, IEnumerable<string>>()));
         }
 
         private void ObjectsShouldContainType<T>(params Type[] types)

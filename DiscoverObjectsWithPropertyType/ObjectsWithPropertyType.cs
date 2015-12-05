@@ -23,13 +23,31 @@ namespace DiscoverObjectsWithPropertyType
                 .Select(t => t).ToList();
         }
 
-        private static bool HasPropertyWithType<T>(Type type)
+        public static IDictionary<Type, IEnumerable<string>> DiscoverWithMapping<T>(Assembly assembly)
+        {
+            return Discover<T>(assembly)
+                .Select(t => new { Type = t, Properties = PropertiesWithType<T>(t) })
+                .ToDictionary(x => x.Type, x => x.Properties);
+        }
+
+        private static IEnumerable<string> PropertiesWithType<T>(Type type)
         {
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            return properties.Any(
+            return properties
+                .Where(QueryForType<T>(type))
+                .Select(p => p.Name);
+        }
 
+        private static bool HasPropertyWithType<T>(Type type)
+        {
+            return PropertiesWithType<T>(type).Any();
+        }
+
+        private static Func<PropertyInfo, bool> QueryForType<T>(Type type)
+        {
+            return new Func<PropertyInfo,bool>(p =>
                 // find direct property type
-                p => p.PropertyType == typeof(T) ||
+                p.PropertyType == typeof(T) ||
 
                 // find within generic type arguments
                 // ICollection<MyHidingType>

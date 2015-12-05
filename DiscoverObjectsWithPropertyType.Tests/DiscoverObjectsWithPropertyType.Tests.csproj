@@ -54,6 +54,7 @@
     <Compile Include="Classes\Order.cs" />
     <Compile Include="Classes\Product.cs" />
     <Compile Include="Classes\ProductImage.cs" />
+    <Compile Include="Classes\RevisedProductionListing.cs" />
     <Compile Include="ObjectsWithPropertyOfTypeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
