@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DiscoverObjectsWithPropertyType</id>
+    <version>1.0.0</version>
+    <authors>Baylor Rae'</authors>
+    <owners>baylor</owners>
+    <licenseUrl>https://github.com/BaylorRae/discover-objects-with-property/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/BaylorRae/discover-objects-with-property</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is an excercise of finding all the objects within an assembly that have a property of a type.</description>
+    <releaseNotes>initial release</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>type reflection</tags>
+  </metadata>
+  <files>
+    <file src="DiscoverObjectsWithPropertyType\bin\Release\DiscoverObjectsWithPropertyType.dll" target="lib\DiscoverObjectsWithPropertyType.dll" />
+  </files>
+</package>
