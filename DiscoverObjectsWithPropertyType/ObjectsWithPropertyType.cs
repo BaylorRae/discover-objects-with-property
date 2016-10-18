@@ -45,14 +45,13 @@ namespace DiscoverObjectsWithPropertyType
 
         private static Func<PropertyInfo, bool> QueryForType<T>(Type type)
         {
-            return new Func<PropertyInfo,bool>(p =>
+            return p =>
                 // find direct property type
                 p.PropertyType == typeof(T) ||
 
                 // find within generic type arguments
                 // ICollection<MyHidingType>
-                p.PropertyType.GenericTypeArguments.Any(a => a == typeof(T))
-            );
+                p.PropertyType.GenericTypeArguments.Any(a => a == typeof(T));
         }
     }
 }
