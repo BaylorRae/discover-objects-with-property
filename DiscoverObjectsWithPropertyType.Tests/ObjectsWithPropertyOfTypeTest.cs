@@ -76,6 +76,18 @@ namespace DiscoverObjectsWithPropertyType.Tests
             Assert.That(matchingProperties, Is.EqualTo(new Dictionary<Type, IEnumerable<string>>()));
         }
 
+        [Test]
+        public void ItChecksIfObjectHasPropertyWithType()
+        {
+            Assert.That(ObjectsWithPropertyType.HasPropertyWithType<Product>(typeof(Category)), Is.True);
+        }
+
+        [Test]
+        public void ItDoesntFailIfNoPropertiesExist()
+        {
+            Assert.That(ObjectsWithPropertyType.HasPropertyWithType<Foo>(typeof(Product)), Is.False);
+        }
+
         private void ObjectsShouldContainType<T>(params Type[] types)
         {
             var matchingObjects = ObjectsWithPropertyType

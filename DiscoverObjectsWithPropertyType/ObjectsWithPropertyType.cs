@@ -38,7 +38,7 @@ namespace DiscoverObjectsWithPropertyType
                 .Select(p => p.Name);
         }
 
-        private static bool HasPropertyWithType<T>(Type type)
+        public static bool HasPropertyWithType<T>(Type type)
         {
             return PropertiesWithType<T>(type).Any();
         }
